@@ -1,0 +1,79 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.springframework:springloaded:1.2.7.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'groovy' // added for testing
+group = ''
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+eclipse {
+	project {
+	  buildCommand 'org.eclipse.jdt.core.javabuilder'
+ 	  buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+	  buildCommand 'org.springframework.ide.eclipse.core.springbuilder'
+	  buildCommand 'org.eclipse.wst.common.project.facet.core.builder'
+	  natures 'org.eclipse.jdt.core.javanature',
+		'org.eclipse.jdt.groovy.core.groovyNature',
+		  'org.eclipse.buildship.core.gradleprojectnature',
+		'org.springframework.ide.eclipse.core.springnature',
+		'org.eclipse.wst.common.project.facet.core.nature'
+ 
+	}
+}
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.1'
+ 
+}
+
+ext {
+	jasperVersion = '9.0.0.M26'
+	lombokVersion = '1.16.18'
+	groovyVersion = '2.4.4'
+	gebVersion = '0.10.0'
+
+}
+
+	dependencies {
+//dependecies for main application
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+	runtime('mysql:mysql-connector-java') // database connection
+	compile("org.apache.tomcat.embed:tomcat-embed-jasper:9.0.0.M26")
+	compile("javax.servlet:jstl:1.2")
+	compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+	compile("org.springframework.security:spring-security-taglibs:4.2.3.RELEASE")
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-mail')
+	compile('org.springframework:spring-context-support')
+	compile("org.springframework.boot:spring-boot-devtools")
+	// dependencies for testing appliation
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile("junit:junit:4.12")
+	testCompile("org.hamcrest:hamcrest-core:1.3")
+	testCompile("org.hamcrest:hamcrest-library:1.3")
+	testCompile("org.codehaus.groovy:groovy-all:$groovyVersion")
+	testCompile('org.springframework.security:spring-security-test')
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '4.0.0.RELEASE'
+	
+	
+	
+}
+
+
